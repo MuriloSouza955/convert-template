@@ -1,14 +1,48 @@
+//Cotação de moedas do dia
+const currencyPrice = {
+    'USD': 4.87,
+    'EUR': 5.32,
+    'GBP': 6.08
+}
+
+//Obtendo os elementos do formulário
 const form = document.querySelector('form');
 const amount = document.getElementById('amount');
 const currency = document.getElementById('currency');
+const footer = document.querySelector('main footer');
 
 //Manipilando o input amount para receber apenas números
 amount.addEventListener('input', ()=> {
     amount.value = amount.value.replace(/[^0-9]/g, '');    
 })
 
+//Captando o evento de submit do formulário
 form.onsubmit = (event) => {
     event.preventDefault();
-    
-    console.log(currency.value)
+    switch (currency.value) {
+        case 'USD':
+            convertCurrency(amount.value, currencyPrice.USD, 'US$');
+            break;
+        case 'EUR':
+            convertCurrency(amount.value, currencyPrice.EUR, '€');
+            break;
+        case 'GBP':
+            convertCurrency(amount.value, currencyPrice.GBP, '£');
+            break;
+        default:
+            alert('Selecione uma moeda válida.');
+    }
+}
+
+//Função para converter o valor em reais
+function convertCurrency(amount, price, simbol) {
+    try{
+        footer.classList.add('show-result'); // aplica a classe para exibir o footer com o resultado.
+    }catch (error) {
+
+        footer.classList.remove('show-result'); // remove a classe para ocultar o footer.
+        console.error('Erro ao exibir o resultado: ', error);
+
+        alert('Erro ao converter a moeda: ' + error);
+    }
 }
