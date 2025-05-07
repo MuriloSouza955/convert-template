@@ -11,6 +11,7 @@ const amount = document.getElementById('amount');
 const currency = document.getElementById('currency');
 const footer = document.querySelector('main footer');
 const description = document.getElementById('description');
+const result = document.getElementById('result');
 
 //Manipilando o input amount para receber apenas números
 amount.addEventListener('input', ()=> {
@@ -40,6 +41,9 @@ function convertCurrency(amount, price, simbol) {
     try{
 
         description.textContent = `${simbol} 1 = ${formatCurrencyBRL(price)}`;
+        
+        // Converte o valor em reais para o formato de moeda selecionada
+        result.textContent = `${formatCurrencyBRL(amount * price)}`.replace('R$', "") + " Reais";
 
         footer.classList.add('show-result'); // aplica a classe para exibir o footer com o resultado.
     }catch (error) {
